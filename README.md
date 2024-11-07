@@ -6,7 +6,7 @@
 ## Προαπαιτούμενα
 - Node.js
 
-API Endpoints
+## API Endpoints
 
 Τα κύρια endpoints του API:
 
