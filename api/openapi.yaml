@@ -1,0 +1,349 @@
+openapi: 3.0.0
+info:
+  title: Event Management API
+  description: "API για διαχείριση εκδηλώσεων, χρηστών, και τοποθεσιών"
+  contact:
+    name: Alex
+    email: papadopaa@ece.auth.gr
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/AlexandrosPapadopoulos/SE2/1.0.0
+  description: Production server
+tags:
+- name: Users
+  description: Διαχείριση χρηστών
+- name: Events
+  description: Διαχείριση εκδηλώσεων
+- name: Locations
+  description: Διαχείριση τοποθεσιών
+paths:
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Λήψη όλων των χρηστών
+      operationId: usersGET
+      responses:
+        "200":
+          description: Λίστα χρηστών
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+      x-swagger-router-controller: Users
+    post:
+      tags:
+      - Users
+      summary: Προσθήκη νέου χρήστη
+      operationId: usersPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: Ο χρήστης προστέθηκε
+      x-swagger-router-controller: Users
+  /users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Λήψη πληροφοριών χρήστη
+      operationId: usersIdGET
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Πληροφορίες χρήστη
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-swagger-router-controller: Users
+    put:
+      tags:
+      - Users
+      summary: Ενημέρωση χρήστη
+      operationId: usersIdPUT
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Ο χρήστης ενημερώθηκε
+      x-swagger-router-controller: Users
+    delete:
+      tags:
+      - Users
+      summary: Διαγραφή χρήστη
+      operationId: usersIdDELETE
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Ο χρήστης διαγράφηκε
+      x-swagger-router-controller: Users
+  /events:
+    get:
+      tags:
+      - Events
+      summary: Λήψη όλων των εκδηλώσεων
+      operationId: eventsGET
+      responses:
+        "200":
+          description: Λίστα εκδηλώσεων
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+                x-content-type: application/json
+      x-swagger-router-controller: Events
+    post:
+      tags:
+      - Events
+      summary: Δημιουργία νέας εκδήλωσης
+      operationId: eventsPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        "201":
+          description: Η εκδήλωση δημιουργήθηκε
+      x-swagger-router-controller: Events
+  /events/{id}:
+    get:
+      tags:
+      - Events
+      summary: Λήψη συγκεκριμένης εκδήλωσης
+      operationId: eventsIdGET
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Πληροφορίες εκδήλωσης
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+      x-swagger-router-controller: Events
+    put:
+      tags:
+      - Events
+      summary: Ενημέρωση εκδήλωσης
+      operationId: eventsIdPUT
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        "200":
+          description: Η εκδήλωση ενημερώθηκε
+      x-swagger-router-controller: Events
+    delete:
+      tags:
+      - Events
+      summary: Διαγραφή εκδήλωσης
+      operationId: eventsIdDELETE
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Η εκδήλωση διαγράφηκε
+      x-swagger-router-controller: Events
+  /locations:
+    get:
+      tags:
+      - Locations
+      summary: Λήψη όλων των τοποθεσιών
+      operationId: locationsGET
+      responses:
+        "200":
+          description: Λίστα τοποθεσιών
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+                x-content-type: application/json
+      x-swagger-router-controller: Locations
+    post:
+      tags:
+      - Locations
+      summary: Προσθήκη νέας τοποθεσίας
+      operationId: locationsPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        "201":
+          description: Η τοποθεσία προστέθηκε
+      x-swagger-router-controller: Locations
+  /locations/{id}:
+    get:
+      tags:
+      - Locations
+      summary: Λήψη πληροφοριών τοποθεσίας
+      operationId: locationsIdGET
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Πληροφορίες τοποθεσίας
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-swagger-router-controller: Locations
+    put:
+      tags:
+      - Locations
+      summary: Ενημέρωση τοποθεσίας
+      operationId: locationsIdPUT
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        "200":
+          description: Η τοποθεσία ενημερώθηκε
+      x-swagger-router-controller: Locations
+    delete:
+      tags:
+      - Locations
+      summary: Διαγραφή τοποθεσίας
+      operationId: locationsIdDELETE
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Η τοποθεσία διαγράφηκε
+      x-swagger-router-controller: Locations
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: name
+        id: 0
+        email: email
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location_id:
+          type: integer
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: 0
+        title: title
+        location_id: 6
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        address:
+          type: string
+      example:
+        address: address
+        name: name
+        id: 0
