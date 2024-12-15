@@ -1,0 +1,38 @@
+name: CI/CD Pipeline for Event Management API
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Unit Tests
+      run: npm test
+
+    - name: Generate Code Coverage
+      run: |
+        npm install --save-dev nyc
+        npx nyc --reporter=text-summary npm test
+
+    - name: Deploy to Render
+      if: success()
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      run: |
+        curl -X POST "https://api.render.com/deploy/srv-<your-service-id>?key=${RENDER_API_KEY}"
