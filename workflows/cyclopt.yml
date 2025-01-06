@@ -1,0 +1,25 @@
+name: Cyclopt Analysis
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cyclopt-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Cyclopt Analysis
+        run: |
+          curl -X POST https://api.cyclopt.com/analyze \
+          -H "Authorization: Bearer ${{ secrets.CYCLOPT_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{"repository_url": "https://github.com/alex01pap/event-manager"}'
