@@ -4,9 +4,10 @@
   "description": "API για διαχείριση εκδηλώσεων, χρηστών, και τοποθεσιών",
   "main": "index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "node index.js"
-  },
+    "start": "node index.js",
+    "test": "node --experimental-vm-modules node_modules/ava/cli.js"
+}
+,
   "keywords": [
     "swagger"
   ],
